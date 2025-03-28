@@ -7,7 +7,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    CursosModule,
       ConfigModule.forRoot({
       isGlobal: true,
     }),
