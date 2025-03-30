@@ -1,11 +1,11 @@
 services:
   postgres:
     image: postgres:latest
-    container_name: cursos_postgress
+    container_name: cursos_postgres
     env_file:
       - .env
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_USER: ${POSTGRES_curso}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:

@@ -2,9 +2,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CursosModule } from './modules/cursos/curso.module';
 
 @Module({
   imports: [
+    CursosModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
