@@ -6,6 +6,9 @@ import { CursoController } from "./infrastructure/controllers/curso.controller";
 import { CursoRepository } from "./domain/repositories/curso.repository";
 import { CursoTypeOrmRepository } from "./infrastructure/persistence/cursos.typeorm.repository";
 import { CreateCursoUseCase } from "./application/create-curso.use-case";
+import { ListCursoUseCase } from "./application/list-curso.use-case";
+import { FindCursoUseCase } from "./application/find-curso.use-case";
+import { UpdateCursoUseCase } from "./application/update-curso.use-case";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Curso])],
@@ -16,6 +19,9 @@ import { CreateCursoUseCase } from "./application/create-curso.use-case";
       useClass: CursoTypeOrmRepository,
     },
     CreateCursoUseCase,
+    ListCursoUseCase,
+    FindCursoUseCase,
+    UpdateCursoUseCase,
   ],
   exports: [CursoRepository],
 })
