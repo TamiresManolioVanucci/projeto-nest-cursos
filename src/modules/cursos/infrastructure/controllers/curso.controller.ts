@@ -1,13 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateCursoDTO } from '../dtos/create-curso.dto';
 import { CreateCursoUseCase } from '../../application/create-curso.use-case';
 import { ListCursoUseCase } from '../../application/list-curso.use-case';
 import { ListCursoDTO } from '../dtos/list-curso.dto';
 import { Curso } from '../../domain/entities/curso.entity';
 import { FindCursoUseCase } from '../../application/find-curso.use-case';
+import { UpdateCursoDTO } from '../dtos/update-curso.dto';
+import { UpdateCursoUseCase } from '../../application/update-curso.use-case';
 
 @Controller('cursos')
 export class CursoController {
@@ -15,6 +18,7 @@ export class CursoController {
     private readonly createCursoUseCase: CreateCursoUseCase,
     private readonly listCursoUseCase: ListCursoUseCase,
     private readonly findCursolUseCase: FindCursoUseCase,
+    private readonly updateImobiliariaUseCase: UpdateCursoUseCase,
   ) {}
 
   @Post()
@@ -48,6 +52,15 @@ export class CursoController {
     return {
       message: 'Curso encontrado.',
       curso: new ListCursoDTO(cursoFound.id, cursoFound.curso),
+    };
+  }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateCursoDTO) {
+    const cursoUpdated = await this.updateImobiliariaUseCase.execute(id, body);
+
+    return {
+      message: 'Curso atualizada',
+      curso: new ListCursoDTO(cursoUpdated.id, cursoUpdated.curso),
     };
   }
 }

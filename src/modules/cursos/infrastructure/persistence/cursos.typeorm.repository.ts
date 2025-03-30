@@ -21,8 +21,8 @@ export class CursoTypeOrmRepository implements CursoRepository {
   async findById(id: string): Promise<Curso | null> {
     return await this.repository.findOne({ where: { id } });
   }
-  update(curso: Curso): Promise<Curso> {
-    throw new Error('Method not implemented.');
+  async update(curso: Curso): Promise<Curso> {
+    return await this.repository.save(curso);
   }
   delete(id: string): Promise<void> {
     throw new Error('Method not implemented.');

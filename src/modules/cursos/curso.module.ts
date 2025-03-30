@@ -8,6 +8,7 @@ import { CursoTypeOrmRepository } from "./infrastructure/persistence/cursos.type
 import { CreateCursoUseCase } from "./application/create-curso.use-case";
 import { ListCursoUseCase } from "./application/list-curso.use-case";
 import { FindCursoUseCase } from "./application/find-curso.use-case";
+import { UpdateCursoUseCase } from "./application/update-curso.use-case";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Curso])],
@@ -20,6 +21,7 @@ import { FindCursoUseCase } from "./application/find-curso.use-case";
     CreateCursoUseCase,
     ListCursoUseCase,
     FindCursoUseCase,
+    UpdateCursoUseCase,
   ],
   exports: [CursoRepository],
 })
