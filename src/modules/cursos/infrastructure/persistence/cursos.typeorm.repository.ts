@@ -18,8 +18,8 @@ export class CursoTypeOrmRepository implements CursoRepository {
   async list(): Promise<Curso[]> {
     return await this.repository.find();
   }
-  findById(id: string): Promise<Curso | null> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<Curso | null> {
+    return await this.repository.findOne({ where: { id } });
   }
   update(curso: Curso): Promise<Curso> {
     throw new Error('Method not implemented.');
