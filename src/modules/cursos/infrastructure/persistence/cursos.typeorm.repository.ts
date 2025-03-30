@@ -12,11 +12,11 @@ export class CursoTypeOrmRepository implements CursoRepository {
     private readonly repository: Repository<Curso>,
   ) {}
 
-  create(curso: Curso): Promise<Curso> {
-    return this.repository.save(curso);
+  async create(curso: Curso): Promise<Curso> {
+    return await this.repository.save(curso);
   }
-  list(): Promise<Curso[]> {
-    throw new Error('Method not implemented.');
+  async list(): Promise<Curso[]> {
+    return await this.repository.find();
   }
   findById(id: string): Promise<Curso | null> {
     throw new Error('Method not implemented.');
