@@ -3,13 +3,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateProfessorUseCase } from '../../application/create-professor.use-case';
 import { CreateProfessorDTO } from '../dtos/create-professor.dto';
 import { ListProfessorDTO } from '../dtos/list-professor.dto';
 import { HashPasswordPipe } from 'src/shared/pipes/hash-password.pipe';
 import { ListProfessorUseCase } from '../../application/list-professor.use-case';
 import { FindProfessorUseCase } from '../../application/find-professor.use-case';
+import { UpdateProfessorDTO } from '../dtos/update-professor.dto';
+import { UpdateProfessorUseCase } from '../../application/update-professor.use-case';
 
 @Controller('professores')
 export class ProfessorController {
@@ -17,6 +19,7 @@ export class ProfessorController {
     private readonly createProfessorUseCase: CreateProfessorUseCase,
     private readonly listProfessorUseCase: ListProfessorUseCase,
     private readonly findProfessorUseCase: FindProfessorUseCase,
+    private readonly updateProfessorUseCase: UpdateProfessorUseCase,
   ) {}
 
   @Post()
@@ -52,6 +55,21 @@ export class ProfessorController {
     return {
       message: 'Professor encontrado.',
       professor: new ListProfessorDTO(professorFound.id, professorFound.nome),
+    };
+  }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: UpdateProfessorDTO) {
+    const professorUpdated = await this.updateProfessorUseCase.execute(
+      id,
+      body,
+    );
+
+    return {
+      message: 'Professor atualizado',
+      professor: new ListProfessorDTO(
+        professorUpdated.id,
+        professorUpdated.nome,
+      ),
     };
   }
 }

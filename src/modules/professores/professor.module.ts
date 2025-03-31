@@ -8,6 +8,7 @@ import { EmailIsUniqueValidator } from 'src/shared/validation/email-is-unique.va
 import { ProfessorController } from './infrastructure/controllers/professor.controller';
 import { ListProfessorUseCase } from './application/list-professor.use-case';
 import { FindProfessorUseCase } from './application/find-professor.use-case';
+import { UpdateProfessorUseCase } from './application/update-professor.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Professor])],
@@ -21,6 +22,7 @@ import { FindProfessorUseCase } from './application/find-professor.use-case';
     CreateProfessorUseCase,
     ListProfessorUseCase,
     FindProfessorUseCase,
+    UpdateProfessorUseCase,
   ],
   exports: [ProfessorRepository, EmailIsUniqueValidator],
 })
