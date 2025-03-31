@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { Injectable } from '@nestjs/common';
 import { ProfessorRepository } from '../../domain/repositories/professor.repository';
 import { Professor } from '../../domain/entities/professor.entity';
@@ -14,17 +11,19 @@ export class ProfessorTypeOrmRepository implements ProfessorRepository {
     private readonly repository: Repository<Professor>,
   ) {}
 
-  findByEmail(email: string): Promise<Professor | null> {
-    throw new Error('Method not implemented.');
+  async findByEmail(email: string): Promise<Professor | null> {
+    return await this.repository.findOne({
+      where: { email },
+    });
   }
   async create(professor: Professor): Promise<Professor> {
     return await this.repository.save(professor);
   }
-  list(): Promise<Professor[]> {
-    throw new Error('Method not implemented.');
+  async list(): Promise<Professor[]> {
+    return await this.repository.find();
   }
-  findById(id: string): Promise<Professor | null> {
-    throw new Error('Method not implemented.');
+  async findById(id: string): Promise<Professor | null> {
+    return await this.repository.findOne({ where: { id } });
   }
   update(professor: Professor): Promise<Professor> {
     throw new Error('Method not implemented.');

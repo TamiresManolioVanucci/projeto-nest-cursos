@@ -6,6 +6,8 @@ import { ProfessorTypeOrmRepository } from './infrastructure/persistence/profess
 import { CreateProfessorUseCase } from './application/create-professor.use-case';
 import { EmailIsUniqueValidator } from 'src/shared/validation/email-is-unique.validator';
 import { ProfessorController } from './infrastructure/controllers/professor.controller';
+import { ListProfessorUseCase } from './application/list-professor.use-case';
+import { FindProfessorUseCase } from './application/find-professor.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Professor])],
@@ -17,6 +19,8 @@ import { ProfessorController } from './infrastructure/controllers/professor.cont
     },
     EmailIsUniqueValidator,
     CreateProfessorUseCase,
+    ListProfessorUseCase,
+    FindProfessorUseCase,
   ],
   exports: [ProfessorRepository, EmailIsUniqueValidator],
 })
