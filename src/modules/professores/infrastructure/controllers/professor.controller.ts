@@ -3,7 +3,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { CreateProfessorUseCase } from '../../application/create-professor.use-case';
 import { CreateProfessorDTO } from '../dtos/create-professor.dto';
 import { ListProfessorDTO } from '../dtos/list-professor.dto';
@@ -12,6 +20,7 @@ import { ListProfessorUseCase } from '../../application/list-professor.use-case'
 import { FindProfessorUseCase } from '../../application/find-professor.use-case';
 import { UpdateProfessorDTO } from '../dtos/update-professor.dto';
 import { UpdateProfessorUseCase } from '../../application/update-professor.use-case';
+import { DeleteProfessorUseCase } from '../../application/delete-professor.use-case';
 
 @Controller('professores')
 export class ProfessorController {
@@ -20,6 +29,7 @@ export class ProfessorController {
     private readonly listProfessorUseCase: ListProfessorUseCase,
     private readonly findProfessorUseCase: FindProfessorUseCase,
     private readonly updateProfessorUseCase: UpdateProfessorUseCase,
+    private readonly deleteProfessorUseCase: DeleteProfessorUseCase,
   ) {}
 
   @Post()
@@ -69,6 +79,18 @@ export class ProfessorController {
       professor: new ListProfessorDTO(
         professorUpdated.id,
         professorUpdated.nome,
+      ),
+    };
+  }
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const professorDeleted = await this.deleteProfessorUseCase.execute(id);
+
+    return {
+      message: 'Usuario do professor deletado',
+      professor: new ListProfessorDTO(
+        professorDeleted.id,
+        professorDeleted.nome,
       ),
     };
   }

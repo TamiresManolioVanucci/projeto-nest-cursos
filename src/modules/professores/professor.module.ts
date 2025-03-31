@@ -9,6 +9,7 @@ import { ProfessorController } from './infrastructure/controllers/professor.cont
 import { ListProfessorUseCase } from './application/list-professor.use-case';
 import { FindProfessorUseCase } from './application/find-professor.use-case';
 import { UpdateProfessorUseCase } from './application/update-professor.use-case';
+import { DeleteProfessorUseCase } from './application/delete-professor.use-case';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Professor])],
@@ -23,6 +24,7 @@ import { UpdateProfessorUseCase } from './application/update-professor.use-case'
     ListProfessorUseCase,
     FindProfessorUseCase,
     UpdateProfessorUseCase,
+    DeleteProfessorUseCase,
   ],
   exports: [ProfessorRepository, EmailIsUniqueValidator],
 })

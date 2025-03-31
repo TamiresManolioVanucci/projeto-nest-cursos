@@ -28,7 +28,7 @@ export class ProfessorTypeOrmRepository implements ProfessorRepository {
   async update(professor: Professor): Promise<Professor> {
     return await this.repository.save(professor);
   }
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
   }
 }
