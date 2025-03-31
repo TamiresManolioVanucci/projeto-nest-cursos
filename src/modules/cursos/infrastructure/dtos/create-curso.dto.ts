@@ -11,4 +11,7 @@ export class CreateCursoDTO extends CreateOrUpdateDTO {
 
   @IsNotEmpty({ message: 'O campo tipo não pode ser vazio' })
   tipo: string;
+
+  @IsNotEmpty({ message: 'O campo tipo não pode ser vazio' })
+  professor_id: string;
   }
