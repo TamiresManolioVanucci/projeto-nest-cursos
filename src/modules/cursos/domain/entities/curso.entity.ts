@@ -1,5 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Professor } from 'src/modules/professores/domain/entities/professor.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('cursos')
 export class Curso {
@@ -23,4 +32,8 @@ export class Curso {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @ManyToOne(() => Professor, (professor) => professor.cursos)
+  @JoinColumn({ name: 'professor_id' })
+  professor: Professor;
 }

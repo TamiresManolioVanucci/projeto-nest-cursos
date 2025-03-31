@@ -1,7 +1,9 @@
+import { Curso } from 'src/modules/cursos/domain/entities/curso.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -26,9 +28,6 @@ export class Professor {
   @Column({ unique: true })
   telefone: string;
 
-  @Column('simple-array')
-  disciplinas: string[];
-
   @Column()
   departamento: string;
 
@@ -43,4 +42,7 @@ export class Professor {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+
+  @OneToMany(() => Curso, (curso) => curso.professor)
+  cursos: Curso[];
 }
