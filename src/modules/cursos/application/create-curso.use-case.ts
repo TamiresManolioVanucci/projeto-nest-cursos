@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 
@@ -19,6 +20,9 @@ export class CreateCursoUseCase implements UseCase {
     const curso = new Curso();
     Object.assign(curso, body);
 
-    return await this.cursoRepository.create(curso);
+    return await this.cursoRepository.create({
+      ...curso,
+      professor: curso['professor_id']
+    });
   }
 }

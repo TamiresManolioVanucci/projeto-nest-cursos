@@ -33,6 +33,7 @@ export class CursoController {
 
   @Post()
   async create(@Body() createCursoDTO: CreateCursoDTO) {
+    console.log(createCursoDTO);
     const cursoCriado = await this.createCursoUseCase.execute(
       null,
       createCursoDTO,

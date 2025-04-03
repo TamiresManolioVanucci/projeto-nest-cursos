@@ -10,9 +10,19 @@ import { ListProfessorUseCase } from './application/list-professor.use-case';
 import { FindProfessorUseCase } from './application/find-professor.use-case';
 import { UpdateProfessorUseCase } from './application/update-professor.use-case';
 import { DeleteProfessorUseCase } from './application/delete-professor.use-case';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { LoginProfessorUseCase } from './application/login-professor.use-case';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Professor])],
+  imports: [
+    TypeOrmModule.forFeature([Professor]),
+    PassportModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'minhaChaveSecreta',
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
   controllers: [ProfessorController],
   providers: [
     {
@@ -25,6 +35,7 @@ import { DeleteProfessorUseCase } from './application/delete-professor.use-case'
     FindProfessorUseCase,
     UpdateProfessorUseCase,
     DeleteProfessorUseCase,
+    LoginProfessorUseCase,
   ],
   exports: [ProfessorRepository, EmailIsUniqueValidator],
 })
