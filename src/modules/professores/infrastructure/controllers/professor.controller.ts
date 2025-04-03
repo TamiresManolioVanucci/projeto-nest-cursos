@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -21,6 +22,8 @@ import { FindProfessorUseCase } from '../../application/find-professor.use-case'
 import { UpdateProfessorDTO } from '../dtos/update-professor.dto';
 import { UpdateProfessorUseCase } from '../../application/update-professor.use-case';
 import { DeleteProfessorUseCase } from '../../application/delete-professor.use-case';
+import { LoginProfessorUseCase } from '../../application/login-professor.use-case';
+import { LoginProfessorDTO } from '../dtos/login-professor.dto';
 
 @Controller('professores')
 export class ProfessorController {
@@ -30,6 +33,7 @@ export class ProfessorController {
     private readonly findProfessorUseCase: FindProfessorUseCase,
     private readonly updateProfessorUseCase: UpdateProfessorUseCase,
     private readonly deleteProfessorUseCase: DeleteProfessorUseCase,
+    private readonly loginProfessorUseCase: LoginProfessorUseCase,
   ) {}
 
   @Post()
@@ -56,6 +60,15 @@ export class ProfessorController {
       professor: professorList.map(
         (professor) => new ListProfessorDTO(professor.id, professor.nome),
       ),
+    };
+  }
+  @Post('login')
+  async login(@Body() body: LoginProfessorDTO) {
+    const accessKey = await this.loginProfessorUseCase.execute(null, body);
+
+    return {
+      message: 'Login efetuado com sucesso',
+      access_key: accessKey,
     };
   }
   @Get(':id')
